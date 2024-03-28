@@ -24,7 +24,7 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
 const API_URL =
-  "https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/capstone.json";
+"https://raw.githubusercontent.com/Meta-Mobile-Developer-PC/Working-With-Data-API/main/capstone.json";
 const sections = ["starters", "mains", "desserts"];
 
 const Item = ({ name, price, description, image }) => (
@@ -87,12 +87,14 @@ const Home = ({ navigation }) => {
       try {
         await createTable();
         menuItems = await getMenuItems();
+
         if (!menuItems.length) {
           menuItems = await fetchData();
           saveMenuItems(menuItems);
         }
         const sectionListData = getSectionListData(menuItems);
         setData(sectionListData);
+
         const getProfile = await AsyncStorage.getItem("profile");
         setProfile(JSON.parse(getProfile));
       } catch (e) {
@@ -104,7 +106,7 @@ const Home = ({ navigation }) => {
   useUpdateEffect(() => {
     (async () => {
       const activeCategories = sections.filter((s, i) => {
-        if (filterSelections.every(item => item === false)) {
+        if (filterSelections.every((item) => item === false)) {
           return true;
         }
         return filterSelections[i];
@@ -184,6 +186,7 @@ const Home = ({ navigation }) => {
           )}
         </Pressable>
       </View>
+
       <View style={styles.heroSection}>
         <Text style={styles.heroHeader}>Little Lemon</Text>
         <View style={styles.heroBody}>
@@ -212,12 +215,15 @@ const Home = ({ navigation }) => {
           elevation={0}
         />
       </View>
+
       <Text style={styles.delivery}>ORDER FOR DELIVERY!</Text>
+
       <Filters
         selections={filterSelections}
         onChange={handleFiltersChange}
         sections={sections}
       />
+      
       <SectionList
         style={styles.sectionList}
         sections={data}
@@ -284,7 +290,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 20,
-    color: "#000000",
+    // color: "#ffffff",
     paddingBottom: 5,
     fontFamily: "Karla-Bold",
   },
@@ -302,6 +308,7 @@ const styles = StyleSheet.create({
   itemImage: {
     width: 100,
     height: 100,
+    resizeMode:"cover",
   },
   avatar: {
     flex: 1,
